@@ -14,12 +14,12 @@ require 'nokogiri'
  # puts doc.css('title').text
 
  
-if doc.xpath('//*[@id="Synopsis"]') == true 
+if doc.xpath('//*[@id="Synopsis"]')
  #if  doc.css('title').text.include? "Profile"	
- 	puts  "this is a movie" + title
+ 	puts  "this is a movie" 
 
 #elsif   doc.title.include? "Synopsis"
-
+p\
  #     puts "this is a movie" + title
 
       else 
