@@ -27,7 +27,7 @@ Spidr.site('http://wiki.d-addicts.com/Main_Page') do |spidr|
 			people.push(
 				url: url
 				)
-			json = JSON.pretty_generate(people)
+			json = JSON.pretty_generate(people) # makes code pretty
 		end
 
 		File.open("newdata.json", 'w') { |file| file.write(json) }
