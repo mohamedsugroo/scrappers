@@ -18,8 +18,8 @@ if doc.xpath('//*[@id="Synopsis"]')
  #if  doc.css('title').text.include? "Profile"	
  	puts  "this is a movie" 
 
-#elsif   doc.title.include? "Synopsis"
-p\
+elsif     doc.xpath('//*[@id="Profile"]') 
+	       puts "this is a person "
  #     puts "this is a movie" + title
 
       else 
