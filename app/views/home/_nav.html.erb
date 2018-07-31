@@ -1,0 +1,84 @@
+<div class="nav_top">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-2">
+				<button class="btn-nav">
+					<i class="fas fa-bars"></i>
+				</button>
+				<a href="<%= root_url %>">
+					<div class="logo">
+					</div>
+				</a>
+			</div>
+			<div class="col-md-2">
+				<ul class="links">
+					<a href="#">
+						<li>
+							Browse
+						</li>
+					</a>
+					<span class="link_divider">|</span>
+					<a href="#">
+						<li>
+							People
+						</li>
+					</a>
+				</ul>
+			</div>
+			<div class="col-md-4 searchbox">
+				<input type="text" class="searchbar" placeholder="Search">
+				<button class="btn-clear">
+					<i class="fas fa-search"></i>
+				</button>
+			</div>
+			<div class="col text-align-right">
+				<ul class="links">
+					<a href="<%= new_user_session_path %>">
+						<li>
+							<i class="far fa-user"></i> Sign In 
+						</li>
+					</a>
+
+					<span class="link_divider">|</span>
+
+					<a href="<%= new_user_registration_path %>">
+						<li>
+							Register <i class="fas fa-fingerprint"></i>
+						</li>
+					</a>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<%#= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+
+
+
+
+<!-- if user signed in uncomment this code  -->
+<!-- 
+<div class="col text-align-right">
+				<ul class="links">
+					<a href="">
+						<li>
+							<i class="far fa-bell"></i>
+						</li>
+					</a>
+					<a href="">
+						<li>
+							<i class="far fa-envelope-open"></i>
+						</li>
+					</a>
+					<a href="">
+						<li><i class="fas fa-info-circle"></i></li>
+					</a>
+					<a href="">
+						<li class="avatar">Link</li>
+					</a>
+				</ul>
+			</div> -->
