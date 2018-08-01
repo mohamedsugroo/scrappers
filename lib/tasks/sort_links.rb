@@ -5,13 +5,13 @@ require 'nokogiri'
 
 file = File.read "newdata.json"
 
-data = JSON.parse(file)
+data = JSON.parse(file)    # breaks , only works for movies and actors urls , not for others
  data.each do |title|
  	 url = title["url"]
  	#doc = Nokogiri::HTML(open('http://wiki.d-addicts.com/33_Gu_Shi_Guan' ))
  	doc =Nokogiri::HTML(open(url))
  	#  puts @english_title =doc.xpath('//*[@id="mw-content-text"]/ul[1]/li[2]').text
- 	  
+ 	 
  
 
  
@@ -36,7 +36,7 @@ end
 	    end       
 
 	else 
-           puts "yeah"
+           puts nil 
 
            
           end
