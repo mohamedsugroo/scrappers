@@ -10,9 +10,20 @@ file = File.read "newdata.json"
 
 data = JSON.parse(file)    # breaks , only works for movies and actors urls , not for others
  data.each do |title|
+begin 
+
  url = title["url"]
+
+
+  rescue Mechanize::ResponseCodeError => e 
+    # redirect_url = 
+ 	 next 
+      
+ 	end 
  	agent = Mechanize.new 
+ 	
  	page =  agent.get(url)
+
  	
  	 # This fetches the page given as parameter
 
@@ -27,11 +38,13 @@ if movie ==  'Synopsis'
     File.open("movie_title.json","w") do |f|
     f.write(json)
 
-    rescue  Net::HTTPInternalError      
-  puts "An error occurred"
+    #rescue Exception => e 
+    #	 puts "I will not be stopped"
+   # rescue  Net::HTTPInternalError      
+  #puts "An error occurred"
 
-rescue Mechanize.ResponseCodeError               # trying to handel 404 error, but 404 error is still occuring .
-  puts "ResponseCodeError occurred"
+#rescue Mechanize.ResponseCodeError               # trying to handel 404 error, but 404 error is still occuring .
+ # puts "ResponseCodeError occurred"
 
 end 
  	 	
