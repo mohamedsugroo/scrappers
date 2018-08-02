@@ -16,15 +16,22 @@ data = JSON.parse(file)    # breaks , only works for movies and actors urls , no
 agent = Mechanize.new 
 begin 
    page =  agent.get(url)
-
- 	 rescue Mechanize::ResponseCodeError => e 
+   puts page.class 
+   puts url 
+    rescue Mechanize::ResponseCodeError => e 
  	 	puts "404 error , won't stop me "
 
+   puts page.class 
+   if page.class != Mechanize::Page
+  
+  next
+   
+
+ 	
  	 #	rescue NoMethodError => e
 
 movie =  agent.page.title.to_s
-if page == nil 
-      	next  
+
 
          # trying to solve this error, rb:25:in `rescue in block in <main>': undefined method `title' for nil:NilClass (NoMethodError)
 
@@ -59,3 +66,4 @@ end
   end 
 
 end 
+
