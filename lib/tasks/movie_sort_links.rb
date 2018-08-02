@@ -15,14 +15,14 @@ begin
  url = title["url"]
 
 
-  rescue Mechanize::ResponseCodeError => e 
-    # redirect_url = 
- 	 next 
-      
- 	end 
  	agent = Mechanize.new 
  	
  	page =  agent.get(url)
+
+ 	 rescue Mechanize::ResponseCodeError => e 
+ 	 	puts "404 error , won't stop me "
+    # redirect_url = 
+ 	 #next
 
  	
  	 # This fetches the page given as parameter
@@ -68,3 +68,4 @@ end
 
  end 
 
+end 
