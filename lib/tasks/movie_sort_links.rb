@@ -10,12 +10,13 @@ file = File.read "newdata.json"
 
 data = JSON.parse(file)    # breaks , only works for movies and actors urls , not for others
  data.each do |title|
+ 	 url = title["url"]
+
+
+agent = Mechanize.new 
 begin 
 
- url = title["url"]
 
-
- 	agent = Mechanize.new 
  	
  	page =  agent.get(url)
 
@@ -24,7 +25,7 @@ begin
     # redirect_url = 
  	 #next
 
- 	
+ 	else 
  	 # This fetches the page given as parameter
 
 movie =  agent.page.title.to_s
