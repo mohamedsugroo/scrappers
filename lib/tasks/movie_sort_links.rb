@@ -3,15 +3,9 @@ require 'json'
 #require 'nokogiri'
 require 'mechanize'
 
-begin 
- 	rescue  Net::HTTPInternalError      
-  puts "An error occurred"
 
-rescue ResponseCodeError               # stoping code from crashing due to these errors 
-  puts "ResponseCodeError occurred"
 
-           
-     end
+   
 file = File.read "newdata.json"
 
 data = JSON.parse(file)    # breaks , only works for movies and actors urls , not for others
@@ -23,12 +17,21 @@ data = JSON.parse(file)    # breaks , only works for movies and actors urls , no
  	 # This fetches the page given as parameter
 
 movie =  agent.page.title.to_s
+
+ 	
+
 if movie ==  'Synopsis' 
      puts "this is a movie: " + movie 
       is_movie = {"movie_name" => "#{movie}"}
     json   = JSON.pretty_generate(is_movie)
     File.open("movie_title.json","w") do |f|
     f.write(json)
+
+    rescue  Net::HTTPInternalError      
+  puts "An error occurred"
+
+rescue Mechanize.ResponseCodeError               # trying to handel 404 error, but 404 error is still occuring .
+  puts "ResponseCodeError occurred"
 
 end 
  	 	
@@ -52,4 +55,3 @@ end
 
  end 
 
-#end
