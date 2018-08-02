@@ -1,10 +1,10 @@
 require 'open-uri'
 require 'json'
-#require 'nokogiri'
+
 require 'mechanize'
 
 
-
+begin 
    
 file = File.read "newdata.json"
 
@@ -15,22 +15,24 @@ data = JSON.parse(file)    # breaks , only works for movies and actors urls , no
 
 agent = Mechanize.new 
 begin 
-
-
- 	
- 	page =  agent.get(url)
+   page =  agent.get(url)
 
  	 rescue Mechanize::ResponseCodeError => e 
  	 	puts "404 error , won't stop me "
-    # redirect_url = 
- 	 #next
 
- 	else 
- 	 # This fetches the page given as parameter
+ 	 #	rescue NoMethodError => e
 
 movie =  agent.page.title.to_s
+if page == nil 
+      	next  
 
- 	
+         # trying to solve this error, rb:25:in `rescue in block in <main>': undefined method `title' for nil:NilClass (NoMethodError)
+
+#rescue NameError => e
+
+     # puts "Name error not stopping me "
+
+      
 
 if movie ==  'Synopsis' 
      puts "this is a movie: " + movie 
@@ -39,27 +41,8 @@ if movie ==  'Synopsis'
     File.open("movie_title.json","w") do |f|
     f.write(json)
 
-    #rescue Exception => e 
-    #	 puts "I will not be stopped"
-   # rescue  Net::HTTPInternalError      
-  #puts "An error occurred"
-
-#rescue Mechanize.ResponseCodeError               # trying to handel 404 error, but 404 error is still occuring .
- # puts "ResponseCodeError occurred"
-
 end 
- 	 	
-# doc =Nokogiri::HTML(open(url))
-#url = title["url"]
- 	#  puts @english_title =doc.xpath('//*[@id="mw-content-text"]/ul[1]/li[2]').text
- 	 
- #if doc.xpath('//*[@id="Synopsis"]')
- 
- #	puts  "this is a movie"
- #	 @english_title =doc.xpath('//*[@id="mw-content-text"]/ul[1]/li[2]').text
- #json = JSON.pretty_generate(@english_title)
-  #File.open("movie_title.json.","w") do |f|
-  #f.write(json)
+
 end
  	# save this to a json file
  
@@ -68,5 +51,11 @@ end
 	
 
  end 
+
+end  
+	
+ 	 
+
+  end 
 
 end 
