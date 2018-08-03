@@ -9,7 +9,6 @@ require './blackListed.rb'
 
 #file = File.read "newdata.json"
 
-<<<<<<< HEAD
 data.each do |d|
 
 	new_links = d['url']
@@ -27,7 +26,7 @@ data.each do |d|
 	puts BlackListed.getLinks(new_links, blackListed_links)
 
 end
-=======
+
 #data = JSON.parse(file)
  #data.each do |title|
  #	 url = title["url"]
