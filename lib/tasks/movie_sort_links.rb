@@ -26,7 +26,7 @@ begin
   
   next
    
-
+end 
  	
  	 #	rescue NoMethodError => e
 
@@ -41,14 +41,13 @@ movie =  agent.page.title.to_s
 
       
 
-if movie ==  'Synopsis' 
+if movie.include?  "Synopsis" 
      puts "this is a movie: " + movie 
       is_movie = {"movie_name" => "#{movie}"}
     json   = JSON.pretty_generate(is_movie)
+end 
     File.open("movie_title.json","w") do |f|
     f.write(json)
-
-end 
 
 end
  	# save this to a json file
@@ -59,7 +58,7 @@ end
 
  end 
 
-end  
+ 
 	
  	 
 
