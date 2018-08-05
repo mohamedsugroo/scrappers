@@ -6,8 +6,8 @@ require 'mechanize'
 
 
 
-
 begin 
+  movies = []
   
 file = File.read "newdata.json"
 agent = Mechanize.new 
@@ -17,7 +17,8 @@ data = JSON.parse(file)    # breaks , only works for movies and actors urls , no
  data.each do |title|
  	 url =  title["url"]
     page =  agent.get(url)
-      movie =  page.search('//*[@id="mw-content-text"]/h2[1]').text
+      details =  page.search('//*[@id="mw-content-text"]/h2[1]').text
+      episodes = page.search('//*[@id="mw-content-text"]/ul[1]/li[4]/b').text 
 
    
  	#end 
@@ -30,13 +31,15 @@ data = JSON.parse(file)    # breaks , only works for movies and actors urls , no
      #if page.class != Mechanize::Page || page.class == Mechanize::Image 
     #	puts "Image error will not stop me fool "
      # 	next
-      if page.class == Mechanize::Page &&  movie == "Details"
+      if page.class == Mechanize::Page &&  details == "Details"  && episodes == "Episodes:"
       title = URI(url).path.split('/').last 
       is_movie ={"movie_name" => "#{title}"}
-       puts is_movie 
-        json = JSON.pretty_generate(is_movie)  
-        File.open("movie_title.json","w") {|f|f.write(json) }
+       #puts is_movie
+       movies.push(is_movie) 
+        json = JSON.pretty_generate(movies)  
+         puts movies 
         
+        File.open("movie_title.json","w") {|f|f.write(json) }
 #rescue 
     #elsif  page.class == Mechanize::Image || movie == nil 
     	 #puts "image will not stop me"
@@ -47,6 +50,7 @@ data = JSON.parse(file)    # breaks , only works for movies and actors urls , no
     	next 
     	# make a method to handel the errors , and put that in ruby 
     	 end 
+      # File.open("movie_title.json","w") {|f|f.write(json) }
 
     	rescue Mechanize::ResponseCodeError   => e 
 
