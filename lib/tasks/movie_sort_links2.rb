@@ -17,9 +17,10 @@ data = JSON.parse(file)    # breaks , only works for movies and actors urls , no
  data.each do |title|
  	 url =  title["url"]
     page =  agent.get(url)
-      details =  page.search('//*[@id="mw-content-text"]/h2[1]').text
-      episodes = page.search('//*[@id="mw-content-text"]/ul[1]/li[4]/b').text 
-
+      #details =  page.search('//*[@id="mw-content-text"]/h2[1]').text
+      #episodes = page.search('//*[@id="mw-content-text"]/ul[1]/li[4]/b').text 
+      title1 = page.search('//*[@id="mw-content-text"]/h2[1]').text
+       title2 = page.search('//*[@id="mw-content-text"]/h2[2]').text 
    
  	#end 
     puts page.class  
@@ -31,15 +32,29 @@ data = JSON.parse(file)    # breaks , only works for movies and actors urls , no
      #if page.class != Mechanize::Page || page.class == Mechanize::Image 
     #	puts "Image error will not stop me fool "
      # 	next
-      if page.class == Mechanize::Page &&  details == "Details"  && episodes == "Episodes:"
+      if page.class == Mechanize::Page &&  title1 == "Details"  && title2 == "Synopsis"
+
+
       title = URI(url).path.split('/').last 
-      is_movie ={"movie_name" => "#{title}"}
-       #puts is_movie
+         details            =  page.search('//*[@id="mw-content-text"]/ul[1]').text
+       synopsis           = page.search('//*[@id="mw-content-text"]/ul[2]').text
+       cast               = page.search('//*[@id="mw-content-text"]/ul[3]').text
+       production_credits = page.search('//*[@id="mw-content-text"]/ul[4]').text
+
+is_movie = {
+  "#{title}" => { 
+    "details" => "#{details}",
+    "synopsis" => "#{synopsis}",
+    "cast " => "#{cast }",
+    "production_credits " => "#{production_credits }"
+  }
+  
+   } 
        movies.push(is_movie) 
         json = JSON.pretty_generate(movies)  
          puts movies 
         
-        File.open("movie_title.json","w") {|f|f.write(json) }
+        File.open("movie_title_data.json","w") {|f|f.write(json) }
 #rescue 
     #elsif  page.class == Mechanize::Image || movie == nil 
     	 #puts "image will not stop me"
