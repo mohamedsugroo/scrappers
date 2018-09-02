@@ -7,7 +7,7 @@ require 'mechanize'
 
 
 begin 
-  movies = []
+  actors= []
   
 file = File.read "newdata.json"
 agent = Mechanize.new 
@@ -17,7 +17,7 @@ data = JSON.parse(file)    # breaks , only works for movies and actors urls , no
  data.each do |title|
    url =  title["url"]
     page =  agent.get(url)
-      synopsis=  page.search('//*[@id="mw-content-text"]/h2[1]').text
+      profile=  page.search('//*[@id="mw-content-text"]/h2[1]').text
       names = page.search('/html/body/div[3]/div[2]/div[6]/ul[1]/li[1]/b').text
    
   #end 
@@ -30,8 +30,12 @@ data = JSON.parse(file)    # breaks , only works for movies and actors urls , no
      #if page.class != Mechanize::Page || page.class == Mechanize::Image 
     # puts "Image error will not stop me fool "
      #  next
-      if page.class == Mechanize::Page &&   names == "Name:" && profile == "Synopsis"
+      if page.class == Mechanize::Page &&   names == "Name:" && profile == "Profile" 
       person_name = URI(url).path.split('/').last  
+      #else 
+      #next 
+       #end 
+
       
       if page.search('//*[@id="mw-content-text"]/h2[2]').text == "TV Shows" || page.search('//*[@id="mw-content-text"]/h2[2]').text == "TV Series" || page.search('//*[@id="mw-content-text"]/h2[2]').text == "TV Shows as an Actor"
 
@@ -56,6 +60,8 @@ data = JSON.parse(file)    # breaks , only works for movies and actors urls , no
   else   page.search('//*[@id="mw-content-text"]/h2[3]').text == "Movies"||  page.search('//*[@id="mw-content-text"]/h2[3]').text == "Movies as an Actor"
         movies = page.search('//*[@id="mw-content-text"]/ul[3]').text
           #   puts movies 
+
+        end 
      
 
 is_movie = {
@@ -67,15 +73,16 @@ is_movie = {
   
    } 
        #puts is_movie
-       movies.push(is_movie) 
-        json = JSON.pretty_generate(movies)  
-         puts movies 
+       actors.push(is_movie) 
+        json = JSON.pretty_generate(is_movie)  
+         puts is_movie
         
-        File.open("movie_title.json","w") {|f|f.write(json) }
+        File.open("actors_data.json","a") {|f|f.write(json) }
 
     else 
       next 
-       end 
+     end 
+
      
 
       rescue Mechanize::ResponseCodeError   => e 
@@ -90,10 +97,10 @@ is_movie = {
 
   
 end 
-
 end 
+#end 
 
-     
+
 
 
   
